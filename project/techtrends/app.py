@@ -19,7 +19,7 @@ def get_db_connection():
 # Function to get a post using its ID
 def get_post(post_id):
     connection = get_db_connection()
-    posts = connection.execute('SELECT * FROM posts WHERE id = ?',
+    post = connection.execute('SELECT * FROM posts WHERE id = ?',
                               (post_id,)).fetchone()
     connection.close()
     return post
@@ -52,7 +52,8 @@ def post(post_id):
       app.logger.debug(f'Article not found')
       return render_template('404.html'), 404
     else:
-      app.logger.info(f'Article {post["title"]} retrieved!')
+      title = post['title']
+      app.logger.info(f'Article {title} retrieved!')
       return render_template('post.html', post=post)
 
 # Define the About Us page
